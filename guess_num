@@ -1,0 +1,52 @@
+
+import random
+
+print ('''
+ +-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+ 
+ |G|u|e|s|s| |t|h|e| |n|u|m|b|e|r| 
+ +-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+ 
+''')
+
+print("I am thinking of number Between 1-100,Can you guess?")
+
+lvl=input("enter type of level:hard(H)//Easy(E)").lower()
+if lvl=='e':
+    turn=10
+elif lvl=='h':
+    turn=5
+else :#defult
+    turn=10
+
+def check(num_inp,ans,turn):
+   if (num_inp>ans):
+           print("Higher")
+           return turn-1
+   elif(num_inp<ans):
+            print("lower")
+            return turn-1
+   else:
+            print("You won-correct ans was:",ans)
+           
+        
+
+
+#number guessing game~
+ans=random.randint(1,100)
+num_inp=0
+
+while ans!=num_inp:
+   print("ramaining turns:",turn)
+   num_inp=int(input("enter number:"))
+   
+   turn = check(num_inp,ans,turn)
+
+   if turn==0:
+       num_inp=ans
+       print("you loose correct ans:",ans)
+
+         
+
+
+    
+    
+   
