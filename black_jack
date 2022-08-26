@@ -1,0 +1,156 @@
+from hashlib import new
+from math import fabs
+from operator import truediv
+from random import random
+
+import random
+import os
+import time
+
+logo = """
+.------.            _     _            _    _            _    
+|A_  _ |.          | |   | |          | |  (_)          | |   
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
+      |  \/ K|                            _/ |                
+      `------'                           |__/           
+"""
+def clear():
+    os.system("cls")
+    time.sleep(0.5)
+
+game=True
+
+cards=[2,3,4,5,6,7,8,9,10,10,10,11]
+
+
+def black(cards):
+    if (cards[0]==11 and cards[1]==10):
+        return True
+
+    elif (cards[0] == 10 and cards[1] == 11):
+
+        return True
+    else:
+        return False
+
+def compare(player_point,dealer_point):
+    if player_point > 21:
+    
+            print("you loose")
+
+    elif (dealer_point > 21) and (player_point <= 21):
+             print("you win")
+
+    elif player_point == dealer_point:
+            print("....draw...")
+
+    elif player_point > dealer_point:
+            print("you win")
+    elif player_point < dealer_point:
+            print("you loose")
+    else:
+            print("game crashed")
+
+
+
+
+
+def count(card):
+  return sum(card)
+
+
+
+
+new_card=0
+pulling_card=False
+
+while game:
+
+ print(logo)
+ starting_card_player=[]
+ starting_card_dealer=[]
+
+
+ for _ in range(2):
+        starting_card_dealer.append(random.choice(cards))
+        starting_card_player.append(random.choice(cards))
+
+
+
+ player_point=count(starting_card_player)
+ dealer_point=count(starting_card_dealer)
+
+ if (player_point==21):
+        print("you got black Jack,you won")
+        game=False
+ elif (dealer_point==21):
+        print("dealer got black jack,You loose")
+        game=False
+ elif player_point>21:
+        print("you loose")
+        game=False
+        
+ else:
+     print("your cards:",starting_card_player)
+  
+     print("dealer_first_card=",starting_card_dealer[0])
+  
+     print("your point:",player_point)
+   
+     pull = input("do you want to pull card (y/n):").lower()
+  
+     if(pull=="y"):
+          pulling_card=True
+     else:
+          pulling_card=False
+  
+     while pulling_card:
+          new_card=random.choice(cards)
+          if new_card==11:
+                if (new_card+player_point)>21:
+                    new_card=1
+          print(new_card)
+          starting_card_player.append(new_card)
+          player_point=player_point+new_card
+        
+          if player_point>21:
+                print("you loose")
+                pulling_card=False
+                game=False
+      
+          if game!=False:
+              pull=print("do you want to pull cards:")
+              if(pull=="y"):
+                  pulling_card=True
+              else:
+                pulling_card=False
+    
+    
+     if (game):
+           if (dealer_point < 17) :
+            while dealer_point < 17:
+              neu_card = random.choice(cards)
+              if new_card == 11:
+                  if (dealer_point+int(new_card)) > 21:
+                      new_card =1 
+              starting_card_dealer.append(new_card)
+              dealer_point += int(neu_card)
+
+
+ print(f"dealer cards:{starting_card_dealer}")
+ print(f"dealer score:{dealer_point}")
+
+ compare(player_point,dealer_point)
+ 
+
+ pay = input("Do you want to play again:(y/n)").lower()
+
+ clear()
+ if pay == "y":
+        game = True
+ else:
+        game = False
+
